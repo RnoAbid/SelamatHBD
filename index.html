@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ffe4ec">
+  <title>Birthday Gift 💗</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #ffe4ec, #fff0f5, #fce7f3);
+      color: #8f3d5b;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 460px;
+      padding: 35px 25px;
+      background: rgba(255, 255, 255, 0.85);
+      border: 2px solid white;
+      border-radius: 28px;
+      box-shadow: 0 15px 45px #d66b8b25;
+      position: relative;
+      z-index: 1;
+    }
+
+    .emoji {
+      font-size: 75px;
+      margin-bottom: 15px;
+      animation: bounce 2s infinite;
+    }
+
+    h1 {
+      font-size: 30px;
+      margin-bottom: 12px;
+      color: #d94f83;
+    }
+
+    .subtitle {
+      line-height: 1.8;
+      margin-bottom: 25px;
+      color: #956477;
+    }
+
+    button {
+      border: none;
+      padding: 14px 25px;
+      border-radius: 30px;
+      font-size: 14px;
+      font-weight: bold;
+      color: white;
+      background: linear-gradient(135deg, #f472a3, #e64980);
+      cursor: pointer;
+      box-shadow: 0 5px 15px #e6498040;
+      transition: 0.3s;
+      font-family: inherit;
+    }
+
+    button:hover {
+      transform: translateY(-3px) scale(1.02);
+    }
+
+    button:focus-visible {
+      outline: 3px solid #d94f83;
+      outline-offset: 3px;
+    }
+
+    .page {
+      display: none;
+      animation: fadeIn 0.7s ease;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    #surprise h2 {
+      color: #d94f83;
+      margin-bottom: 15px;
+    }
+
+    .letter-text {
+      font-size: 14px;
+      line-height: 1.9;
+      white-space: pre-line;
+      color: #956477;
+    }
+
+    .footer {
+      font-size: 12px;
+      margin-top: 25px;
+      opacity: 0.7;
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .back-button {
+      background: white;
+      color: #d94f83;
+      border: 1px solid #f5b7ce;
+      box-shadow: none;
+    }
+
+    /* GALERI FOTO */
+
+    .gallery-decoration {
+      font-size: 45px;
+      margin-bottom: 10px;
+    }
+
+    .gallery-title {
+      font-size: 25px;
+      color: #d94f83;
+      margin-bottom: 10px;
+    }
+
+    .gallery-subtitle {
+      font-size: 14px;
+      line-height: 1.8;
+      margin-bottom: 22px;
+      color: #956477;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin: 20px 0;
+    }
+
+    .photo-item {
+      background: #fff0f5;
+      padding: 8px;
+      border: 1px solid #ffe0eb;
+      border-radius: 18px;
+      box-shadow: 0 5px 14px #d66b8b20;
+      transform: rotate(-2deg);
+      transition: 0.3s;
+    }
+
+    .photo-item:nth-child(even) {
+      transform: rotate(2deg);
+    }
+
+    .photo-item:hover {
+      transform: rotate(0deg) scale(1.04);
+    }
+
+    .photo-item img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+      background: #fce7f3;
+    }
+
+    .photo-caption {
+      font-size: 12px;
+      line-height: 1.5;
+      padding: 10px 2px 4px;
+      color: #b84c78;
+      font-weight: 600;
+    }
+
+    .gallery-message {
+      font-size: 14px;
+      line-height: 1.9;
+      margin-top: 20px;
+      color: #956477;
+    }
+
+    /* PEMUTAR MUSIK BERGAYA SPOTIFY */
+
+    .music-player {
+      background: linear-gradient(145deg, #242424, #121212);
+      color: white;
+      padding: 17px;
+      border-radius: 20px;
+      margin: 22px 0;
+      text-align: left;
+      box-shadow: 0 8px 22px #00000020;
+    }
+
+    .music-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #eeeeee;
+      margin-bottom: 15px;
+    }
+
+    .spotify-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #1ed760;
+      color: #121212;
+      font-size: 15px;
+    }
+
+    .music-status {
+      margin-left: auto;
+      color: #1ed760;
+      font-size: 9px;
+      letter-spacing: 1px;
+    }
+
+    .music-content {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .album-cover {
+      width: 105px;
+      height: 105px;
+      flex-shrink: 0;
+      object-fit: cover;
+      border-radius: 12px;
+      background: #333333;
+    }
+
+    .music-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .music-info h3 {
+      font-size: 14px;
+      color: white;
+      margin-bottom: 5px;
+      overflow-wrap: anywhere;
+    }
+
+    .music-info p {
+      font-size: 11px;
+      color: #b3b3b3;
+      margin-bottom: 13px;
+    }
+
+    .music-progress {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 9px;
+      color: #b3b3b3;
+    }
+
+    #progressBar {
+      flex: 1;
+      min-width: 0;
+      width: 100%;
+      height: 4px;
+      accent-color: #1ed760;
+      cursor: pointer;
+    }
+
+    .music-controls {
+      display: flex;
+      justify-content: center;
+      margin-top: 12px;
+    }
+
+    .music-play {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      padding: 0;
+      background: #1ed760;
+      color: #121212;
+      font-size: 17px;
+      box-shadow: none;
+    }
+
+    .music-play:hover {
+      background: #3be477;
+      transform: scale(1.06);
+    }
+
+    .music-message {
+      color: #b3b3b3;
+      font-size: 11px;
+      text-align: center;
+      margin-top: 14px;
+    }
+
+    .music-error {
+      display: none;
+      color: #ffc1d7;
+      font-size: 11px;
+      line-height: 1.6;
+      margin-top: 10px;
+      overflow-wrap: anywhere;
+    }
+
+    
+.music-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 12px;
+}
+
+.music-skip {
+  background: transparent;
+  color: #4cb862;
+  border: none;
+  box-shadow: none;
+  padding: 8px;
+  font-size: 21px;
+  cursor: pointer;
+}
+
+.music-skip:hover {
+  background: transparent;
+  color: #4cb862;
+  transform: scale(1.12);
+}
+
+.music-play {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  padding: 0;
+  background: #4cb862;
+  color: white;
+  font-size: 20px;
+  box-shadow: none;
+  flex-shrink: 0;
+}
+
+.music-play:hover {
+  background: #4cb862;
+  transform: scale(1.06);
+}
+
+
+    /* ANIMASI */
+
+    .heart {
+      position: fixed;
+      bottom: -30px;
+      pointer-events: none;
+      z-index: 10;
+      animation: floatUp 5s linear forwards;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes floatUp {
+      to {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 28px 18px;
+      }
+
+      h1 {
+        font-size: 25px;
+      }
+
+      .emoji {
+        font-size: 65px;
+      }
+
+      .photo-grid {
+        gap: 10px;
+      }
+
+      .photo-item img {
+        height: 125px;
+      }
+
+      .gallery-title {
+        font-size: 23px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .music-player {
+        padding: 12px;
+      }
+
+      .album-cover {
+        width: 82px;
+        height: 82px;
+      }
+
+      .music-content {
+        gap: 10px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+    <section class="card">
+
+      <!-- HALAMAN UTAMA -->
+      <div id="homePage" class="page">
+        <div class="emoji">🎂</div>
+        <h1>Happy Birthday! 💗</h1>
+
+        <p class="subtitle">
+          Hari ini adalah hari spesial seseorang
+          yang spesial juga. Aku punya sesuatu
+          untuk kamu...
+        </p>
+
+        <button onclick="openGift()">Buka Hadiah 🎁</button>
+      </div>
+
+      <!-- HALAMAN UCAPAN -->
+      <div id="surprise" class="page">
+        <div style="font-size: 55px; margin-bottom: 15px;">💌</div>
+
+        <h2>Untuk Kamu yang Spesial</h2>
+
+        <p class="letter-text">Selamat ulang tahun ! 🥳💗
+
+Semoga di umur yang baru ini,
+kamu selalu diberikan kebahagiaan,
+kesehatan, banyak hal baik yang datang kepadamu,
+dan selalu dikelilingi dengan orang-orang baik.
+
+Selalu diberikan kemudahan dan kelancaran
+dalam menimba ilmu, dimudahkan juga untuk menggapai
+satu per satu impian kamu.
+
+Terima kasih sudah menjadi dirimu.
+Jangan lupa bahagia, ya!
+You deserve all the happiness
+in the world! 💐
+
+Maaf tidak bisa terlalu banyak
+membuat kata-kata hehehe😁
+pokoknya semua doa yang baik untukmu my loppp..
+
+Dari Rino untuk Erin, lop youuu...❤️❤️❤️</p>
+
+        <p style="font-size: 25px; margin-top: 20px;">🎂 🎁 💗 🌷</p>
+
+        <div class="button-group">
+          <button onclick="openPhotos()">Lihat Sedikit Kenangan Kita 📸</button>
+          <button onclick="backToHome()" class="back-button">
+            ← Kembali ke Halaman Utama
+          </button>
+        </div>
+      </div>
+
+      <!-- HALAMAN GALERI FOTO -->
+      <div id="photoPage" class="page">
+        <div class="gallery-decoration">🎀 📸 💗</div>
+
+        <h2 class="gallery-title">Little Memories 🌷</h2>
+
+        <p class="gallery-subtitle">
+          Beberapa foto dan kenangan kecil
+          yang ingin selalu aku simpan bersamamu ♡
+        </p>
+
+        <!-- PEMUTAR MUSIK -->
+        <div class="music-player">
+          <div class="music-header">
+            <span class="spotify-icon">♫</span>
+            <span>Now Playing 🎶</span>
+            <span class="music-status">YOUR SONG</span>
+          </div>
+
+          <div class="music-content">
+            <img
+              src="cover.jfif"
+              alt="Cover lagu"
+              class="album-cover"
+              id="albumCover"
+            >
+
+            <div class="music-info">
+              <h3 id="songTitle">Perfect</h3>
+              <p id="artistName">Ed Sheeran</p>
+
+              <div class="music-progress">
+                <span id="currentTime">0:00</span>
+                <input
+                  type="range"
+                  id="progressBar"
+                  min="0"
+                  max="100"
+                  step="0.1"
+                  value="0"
+                  aria-label="Posisi lagu"
+                >
+                <span id="duration">0:00</span>
+              </div>
+
+              <div class="music-controls">
+                <button
+                  class="music-skip"
+                  onclick="skipMusic(-10)"
+                  aria-label="Mundur 10 detik"
+                  title="Mundur 10 detik"
+                >◀l</button>
+              
+                <button
+                  class="music-play"
+                  id="playButton"
+                  onclick="toggleMusic()"
+                  aria-label="Putar musik"
+                >▶</button>
+              
+                <button
+                  class="music-skip"
+                  onclick="skipMusic(10)"
+                  aria-label="Maju 10 detik"
+                  title="Maju 10 detik"
+                >l▶</button>
+              </div>
+            </div>
+          </div>
+
+          <p class="music-message">🎧 A little song, just for you ♡</p>
+          <p id="musicError" class="music-error" role="status"></p>
+
+          <audio id="birthdayMusic" preload="metadata">
+            <source src="lagu.mp3" type="audio/mpeg">
+            Browser kamu tidak mendukung pemutar audio.
+          </audio>
+        </div>
+
+        <!-- FOTO DAN CAPTION -->
+        <div class="photo-grid">
+          <div class="photo-item">
+            <img src="foto1.jpeg" alt="Kenangan pertama" loading="lazy">
+            <div class="photo-caption">Our Little Moments 💗</div>
+          </div>
+
+          <div class="photo-item">
+            <img src="foto2.jpeg" alt="Kenangan kedua" loading="lazy">
+            <div class="photo-caption">Sweet Memories 🌷</div>
+          </div>
+
+          <div class="photo-item">
+            <img src="foto3.jpeg" alt="Kenangan ketiga" loading="lazy">
+            <div class="photo-caption">You Make Me Smile ☁️</div>
+          </div>
+
+          <div class="photo-item">
+            <img src="foto4.jpeg" alt="Kenangan keempat" loading="lazy">
+            <div class="photo-caption">Forever in My Heart 💕</div>
+          </div>
+        </div>
+
+        <p class="gallery-message">
+          Kalau kenangan bisa disimpan dalam
+          sebuah kotak, aku ingin menyimpan
+          semuanya bersamamu. 🧸💗
+          <br><br>
+          Thank you for being part of my story. ♡
+        </p>
+
+        <div class="button-group">
+          <button class="back-button" onclick="backToGift()">
+            ← Kembali ke Ucapan
+          </button>
+
+          <button class="back-button" onclick="backToHome()">
+            🏠 Kembali ke Halaman Utama
+          </button>
+        </div>
+      </div>
+
+      <div class="footer">Made with love, just for you 💕</div>
+    </section>
+  </main>
+
+  <script>
+    const validPages = ["homePage", "surprise", "photoPage"];
+
+    // Simpan dan pulihkan halaman terakhir setelah refresh.
+    function showPage(page, smooth = true) {
+      if (!validPages.includes(page)) page = "homePage";
+
+      validPages.forEach(id => {
+        document.getElementById(id).classList.toggle("active", id === page);
+      });
+
+      try {
+        localStorage.setItem("birthdayCurrentPage", page);
+      } catch (error) {
+        // Website tetap bisa digunakan jika localStorage tidak tersedia.
+      }
+
+      window.scrollTo({
+        top: 0,
+        behavior: smooth ? "smooth" : "auto"
+      });
+    }
+
+    function openGift() {
+      showPage("surprise");
+      for (let i = 0; i < 30; i++) {
+        setTimeout(createHeart, i * 100);
+      }
+    }
+
+    function openPhotos() {
+      showPage("photoPage");
+      for (let i = 0; i < 20; i++) {
+        setTimeout(createHeart, i * 100);
+      }
+    }
+
+    function backToGift() {
+      showPage("surprise");
+    }
+
+    function backToHome() {
+      showPage("homePage");
+    }
+
+    // Pemutar musik.
+    const music = document.getElementById("birthdayMusic");
+    const playButton = document.getElementById("playButton");
+    const progressBar = document.getElementById("progressBar");
+    const currentTimeText = document.getElementById("currentTime");
+    const durationText = document.getElementById("duration");
+    const musicError = document.getElementById("musicError");
+
+    function formatTime(seconds) {
+      if (!Number.isFinite(seconds)) return "0:00";
+      const minutes = Math.floor(seconds / 60);
+      const remainingSeconds = Math.floor(seconds % 60);
+      return minutes + ":" + String(remainingSeconds).padStart(2, "0");
+    }
+
+    async function toggleMusic() {
+      musicError.style.display = "none";
+
+      if (music.paused) {
+        try {
+          await music.play();
+        } catch (error) {
+          musicError.textContent =
+            "Lagu belum bisa diputar. Pastikan file lagu.mp3 ada di folder website dan formatnya benar.";
+          musicError.style.display = "block";
+        }
+      } else {
+        music.pause();
+      }
+    }
+
+    music.addEventListener("loadedmetadata", function () {
+      durationText.textContent = formatTime(music.duration);
+    });
+
+    music.addEventListener("timeupdate", function () {
+      currentTimeText.textContent = formatTime(music.currentTime);
+
+      if (Number.isFinite(music.duration) && music.duration > 0) {
+        progressBar.value = (music.currentTime / music.duration) * 100;
+      }
+    });
+
+    progressBar.addEventListener("input", function () {
+      if (Number.isFinite(music.duration) && music.duration > 0) {
+        music.currentTime = (Number(progressBar.value) / 100) * music.duration;
+      }
+    });
+
+    music.addEventListener("play", function () {
+      playButton.textContent = "Ⅱ";
+      playButton.setAttribute("aria-label", "Jeda musik");
+      musicError.style.display = "none";
+    });
+
+    music.addEventListener("pause", function () {
+      playButton.textContent = "▶";
+      playButton.setAttribute("aria-label", "Putar musik");
+    });
+
+    music.addEventListener("ended", function () {
+      playButton.textContent = "▶";
+      progressBar.value = 0;
+      currentTimeText.textContent = "0:00";
+    });
+
+    music.addEventListener("error", function () {
+      musicError.textContent =
+        "File lagu tidak ditemukan atau tidak bisa dibaca. Periksa nama lagu.mp3.";
+      musicError.style.display = "block";
+    });
+
+    function skipMusic(seconds) {
+  const music = document.getElementById("birthdayMusic");
+
+  if (Number.isFinite(music.duration) && music.duration > 0) {
+    music.currentTime = Math.max(
+      0,
+      Math.min(music.duration, music.currentTime + seconds)
+    );
+  }
+}
+
+    // Animasi hati.
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+
+      const decorations = ["💗", "💖", "💕", "✨", "🌸", "🎀"];
+      heart.textContent =
+        decorations[Math.floor(Math.random() * decorations.length)];
+
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = (15 + Math.random() * 20) + "px";
+      heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6500);
+    }
+
+    window.addEventListener("DOMContentLoaded", function () {
+      let savedPage = "homePage";
+
+      try {
+        const storedPage = localStorage.getItem("birthdayCurrentPage");
+        if (validPages.includes(storedPage)) savedPage = storedPage;
+      } catch (error) {
+        // Gunakan halaman utama jika penyimpanan tidak tersedia.
+      }
+
+      showPage(savedPage, false);
+    });
+  </script>
+</body>
+</html>
